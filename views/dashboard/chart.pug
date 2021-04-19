@@ -14,7 +14,8 @@ html(lang='en')
 
 			.center
 				.group
-					h1 PH
+					h1 PH = 
+					h1(id="ph") x
 					canvas(id="myChart" width="350" height="350")
 				.group
 					h1 EC
@@ -22,11 +23,37 @@ html(lang='en')
 				.group
 					h1 TEMPERATURE
 					canvas(id="myChart2" width="350" height="350")
+			button(type='submit' onclick="testClick()") click
 		include ../common/footer.pug
 		+footer()
+		
+		//- script(src="../../public/javascripts/require.js" data-main="../../public/javascripts/mqtt.js")
 		script.
-			let x = document.getElementById("aaa");
 
+			var client = mqtt.connect({host: '51.79.157.39',port: 1884});
+			var payload = "eiei";
+			var topicZ;
+
+			client.on("connect", function () {
+			client.subscribe("test");
+			});
+
+			client.on("message", function (topic, message) {
+				// message is Buffer
+				console.log(topic, message.toString());
+				payload = message;
+				topicZ = topic;
+
+			});
+			
+			function testClick(){
+				console.log("clicked")
+				client.publish("testsend",'hello nigga')
+			}
+
+
+		
+		
 				//- console.log('model == asdasds', )
 			var chartDom = document.getElementById("myChart");
 			var myChart = echarts.init(chartDom);
@@ -129,7 +156,7 @@ html(lang='en')
 					myChart1.setOption(option, true);
 
 					//TEMP
-					option.series[0].data[0].value = #{datas.phdata};
+					option.series[0].data[0].value = payload;
 					//   option.series[1].data[0].value = 66;
 					myChart2.setOption(option, true);
 

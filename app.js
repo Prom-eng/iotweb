@@ -9,7 +9,7 @@ let session = require("express-session");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
-require('./passport_setup')(passport);
+require("./passport_setup")(passport);
 
 var app = express();
 
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(session({ secret: 'our new secret'}));
+app.use(session({ secret: "our new secret" }));
 app.use(passport.initialize());
 app.use(passport.session());
 
