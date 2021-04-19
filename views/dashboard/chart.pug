@@ -1,0 +1,148 @@
+doctype html
+html(lang='en')
+	include ../common/head.pug
+	+head("Starter MVP")
+	body
+		header
+			include ../common/navbar.pug
+			+navbar()
+
+			style 
+				include ../../public/stylesheets/style.css
+			
+			
+
+			.center
+				.group
+					h1 PH
+					canvas(id="myChart" width="350" height="350")
+				.group
+					h1 EC
+					canvas(id="myChart1" width="350" height="350")
+				.group
+					h1 TEMPERATURE
+					canvas(id="myChart2" width="350" height="350")
+		include ../common/footer.pug
+		+footer()
+		script.
+			let x = document.getElementById("aaa");
+
+				//- console.log('model == asdasds', )
+			var chartDom = document.getElementById("myChart");
+			var myChart = echarts.init(chartDom);
+			var option;
+			var chartDom1 = document.getElementById("myChart1");
+			var myChart1 = echarts.init(chartDom1);
+			var chartDom2 = document.getElementById("myChart2");
+			var myChart2 = echarts.init(chartDom2);
+
+
+				option = {
+				series: [
+					{
+					type: "gauge",
+					center: ["50%", "60%"],
+					startAngle: 200,
+					endAngle: -20,
+					min: 0,
+					max: 100,
+					splitNumber: 10,
+					itemStyle: {
+						color: "#389967",
+					},
+					progress: {
+						show: true,
+						width: 30,
+					},
+
+					pointer: {
+						show: false,
+					},
+					axisLine: {
+						lineStyle: {
+						width: 30,
+						},
+					},
+					axisTick: {
+						distance: -45,
+						splitNumber: 5,
+						lineStyle: {
+						width: 2,
+						color: "#999",
+						},
+					},
+					splitLine: {
+						distance: -52,
+						length: 14,
+						lineStyle: {
+						width: 3,
+						color: "#999",
+						},
+					},
+					axisLabel: {
+						distance: -20,
+						color: "#999",
+						fontSize: 20,
+					},
+					anchor: {
+						show: false,
+					},
+					title: {
+						show: false,
+					},
+					detail: {
+						valueAnimation: true,
+						width: "60%",
+						lineHeight: 40,
+						height: "15%",
+						borderRadius: 8,
+						offsetCenter: [0, "-15%"],
+						fontSize: 36,
+						fontWeight: "normal",
+						formatter: "{value}",
+						color: "auto",
+					},
+					data: [
+						{
+						value: 0,
+						},
+					],
+					},
+
+				],
+				};
+
+				//- const ss = (model) => {
+				//- console.log("model = ", model);
+				//- };
+
+				setInterval(function(){
+				  console.log("after call ajax:");
+				  //PH
+				  option.series[0].data[0].value = #{datas.tempdata};
+				  //   option.series[1].data[0].value = random;
+				   myChart.setOption(option, true);
+
+					//EC
+					option.series[0].data[0].value = #{datas.ecdata};
+					//   option.series[1].data[0].value = 44;
+					myChart1.setOption(option, true);
+
+					//TEMP
+					option.series[0].data[0].value = #{datas.phdata};
+					//   option.series[1].data[0].value = 66;
+					myChart2.setOption(option, true);
+
+				},2000
+				);
+
+				option && myChart.setOption(option);
+				option && myChart1.setOption(option);
+				option && myChart2.setOption(option);
+		//- script
+		//- <script type="module" src="script.js"></script>
+		//- script(src='javascripts/echarts.js' type="module")
+			//- include ../../public/javascripts/echarts.js
+	
+
+

@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head()
+  body
+    script.
+      //- setInterval(function(){ location.reload() }, 5000);
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 DATA LOG
+            table.table
+              thead
+                tr
+                  th(scope="col") DATA
+                tr
+              tbody                
+                for data in datas
+                  tr(id=data.id)
+                    td
+                      span #{data.data}
+    include ../common/footer.pug
+    +footer()
+    script(src='/javascripts/leads.js')

@@ -1,0 +1,39 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Starter MVP")
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+      .container(style={margin: '100px'})
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1.mb-3(style="font-size:60px;").color Welcome!!
+            p.lead(style="font-size:40px;width:600px;") Krapow smart hydroponic fram
+            p.lead.mb-4(style="font-size:40px;") IOT 63
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            img(src="https://media.istockphoto.com/vectors/hydroponics-plants-vector-isolated-illustration-vector-id968421950?k=6&m=968421950&s=612x612&w=0&h=wt3YfDe-Lusx53JB1fOhOy1O4HLDnvX3q-ZebZ7c94I=" style="margin-top:-30%;position:absolute;width:200%")
+            //- form(action="/", method="POST")
+            //-   .input-group.mb-3
+            //-     input(name="lead_email", type="email", placeholder="Enter your email address").form-control
+            //-     .input-group-append
+            //-       button(type="submit").btn.btn-primary Get Started
+    include common/footer.pug
+    +footer()
+   
+//- Before
+//- h1= title
+//-   p Welcome to #{title}
+//-   form(action="/",method='post')
+//-       input(name="lead_email",type="email",placeholder="Enter Email")
+//-       button(type='submit') Submit
+//-   if leads
+//-     h1 Leads 
+//-     for lead in leads
+//-       p(id=lead.id) 
+//-         span #{lead.email}
+//-         |
+//-         a(href="/lead/"+lead.id) Detail
+//-         |
+//-         button(onClick=`deleteLead('${lead.id}')`) Delete

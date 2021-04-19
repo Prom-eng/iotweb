@@ -1,0 +1,26 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  height: 100%;
+  padding: 0px 64px;
+}
+
+.group {
+  text-align: center;
+}
