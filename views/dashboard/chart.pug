@@ -14,8 +14,7 @@ html(lang='en')
 
 			.center
 				.group
-					h1 PH = 
-					h1(id="ph") x
+					h1 PH 
 					canvas(id="myChart" width="350" height="350")
 				.group
 					h1 EC
@@ -23,7 +22,17 @@ html(lang='en')
 				.group
 					h1 TEMPERATURE
 					canvas(id="myChart2" width="350" height="350")
-			button(type='submit' onclick="testClick()") click
+			button(type='submit' onclick="Click()") สาร A
+			h1(id="subStanceA") #{subStanceA}
+			button(type='submit' onclick="testClick()") สาร B
+			h1(id="subStanceB") #{subStanceB}
+			button(type='submit' onclick="testClick()") กรดไนตริก
+			h1(id="nitric") #{nitric}
+			button(type='submit' onclick="testClick()") ปั้ม
+			h1(id="pump") #{pump}
+			button(type='submit' onclick="testClick()") วาว์น้ำ
+			h1(id="waterValve") #{waterValve}
+
 		include ../common/footer.pug
 		+footer()
 		
@@ -32,17 +41,32 @@ html(lang='en')
 
 			var client = mqtt.connect({host: '51.79.157.39',port: 1884});
 			var payload = "eiei";
+			let tempData,phData,ecData;
+			let subStanceA =document.getElementById("subStanceA")
+			let subStanceB =document.getElementById("subStanceB")
+			let nitric =document.getElementById("subStanceB")
+			pump,waterValve
 			var topicZ;
 
 			client.on("connect", function () {
 			client.subscribe("test");
+			client.subscribe("phdata");
 			});
 
 			client.on("message", function (topic, message) {
 				// message is Buffer
 				console.log(topic, message.toString());
+				if(topic=="phdata"){
+					phData=message
+				}
+				if(topic=="ecdata"){
+					ecData=message
+				}
+				if(topic=="tempdata"){
+					tempData=message
+				}
 				payload = message;
-				topicZ = topic;
+				//- document.getElementById("ph").innerHTML = message;
 
 			});
 			
@@ -146,17 +170,17 @@ html(lang='en')
 				setInterval(function(){
 				  console.log("after call ajax:");
 				  //PH
-				  option.series[0].data[0].value = #{datas.tempdata};
+				  option.series[0].data[0].value = phData;
 				  //   option.series[1].data[0].value = random;
 				   myChart.setOption(option, true);
 
 					//EC
-					option.series[0].data[0].value = #{datas.ecdata};
+					option.series[0].data[0].value = ecData;
 					//   option.series[1].data[0].value = 44;
 					myChart1.setOption(option, true);
 
 					//TEMP
-					option.series[0].data[0].value = payload;
+					option.series[0].data[0].value = tempData;
 					//   option.series[1].data[0].value = 66;
 					myChart2.setOption(option, true);
 
